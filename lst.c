@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 19:48:55 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/23 19:27:30 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/23 21:36:56 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_lst	*lst_new(int num, int index)
 		return (NULL);
 	new->num = num;
 	new->index = index;
+	new->next = NULL;
+	new->prev = NULL;
 	return (new);
 }
 
@@ -30,18 +32,16 @@ t_lst	*lst_last(t_lst *root)
 	t_lst	*cur;
 
 	cur = root;
-	while (cur)
+	while (cur->next)
 		cur = cur->next;
 	return (cur);
 }
 
-t_lst	*lst_add_back(t_lst *root, int num)
+t_lst	*lst_add_back(t_lst *root, t_lst *new)
 {
-	t_lst	*new;
 	t_lst	*last;
 
 	last = lst_last(root);
-	new = lst_new(num, 0);
 	last->next = new;
 	new->prev = last;
 	return (root);

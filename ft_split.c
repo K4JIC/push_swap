@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 18:07:16 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/23 19:30:01 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/23 21:23:05 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	**ft_split(char *str)
 	int		n;
 	int		i;
 
-	n = count_word(str);
+	n = count_words(str);
 	sp = (char **)malloc(sizeof(char *) * (n + 1));
 	if (!sp)
 		return (NULL);
@@ -102,15 +102,15 @@ char	**ft_split(char *str)
 	return (sp);
 }
 
-#include <stdio.h>
+// #include <stdio.h>
 
-int main(void)
-{
-	char	**sp;
+// int main(void)
+// {
+// 	char	**sp;
 
-	sp = ft_split("12 2 33 4");
-	for (int i = 0; i < 4; i++)
-		printf("%s\n", sp[i]);
-	free_sp(sp);
-	return (0);
-}
+// 	sp = ft_split("12 2 33 4");
+// 	for (int i = 0; i < 4; i++)
+// 		printf("%s\n", sp[i]);
+// 	free_sp(sp);
+// 	return (0);
+// }
