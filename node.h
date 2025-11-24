@@ -14,6 +14,7 @@
 # define STRUCT_H
 
 # include <stdbool.h>
+# include <unistd.h>
 
 typedef struct s_node{
 	int				num;
@@ -29,12 +30,24 @@ t_node	*node_last(t_node *dummy);
 t_node	*node_add_back(t_node *dummy, t_node *new);
 t_node	*node_add_front(t_node *dummy, t_node *new);
 
-/*node_pop*/
+/*node_del*/
+int		nodelen(t_node *dummy);
 t_node	*node_pop(t_node **dummy);
 void	free_node(t_node *dummy);
 
-/*rules*/
+/*rules1*/
+int	sa(t_node *stack_a, t_node *stack_b);
+int	sb(t_node *stack_a, t_node *stack_b);
 int	pa(t_node *stack_a, t_node *stack_b);
 int	pb(t_node *stack_a, t_node *stack_b);
+/*rules2*/
+int	ra(t_node *stack_a, t_node *stack_b);
+int	rb(t_node *stack_a, t_node *stack_b);
+int	rra(t_node *stack_a, t_node *stack_b);
+int	rrb(t_node *stack_a, t_node *stack_b);
+/*rules3*/
+int	ss(t_node *stack_a, t_node *stack_b);
+int	rr(t_node *stack_a, t_node *stack_b);
+int	rrr(t_node *stack_a, t_node *stack_b);
 
 #endif

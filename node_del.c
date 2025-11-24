@@ -6,12 +6,27 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 13:00:33 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/24 14:42:09 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/24 15:17:45 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "node.h"
 #include <stdlib.h>
+
+int	nodelen(t_node *dummy)
+{
+	t_node	*cur;
+	int		i;
+
+	cur = dummy->next;
+	i = 0;
+	while (cur->valid)
+	{
+		cur = cur->next;
+		i++;
+	}
+	return (i);
+}
 
 t_node	*node_pop(t_node **dummy)
 {

@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   define.h                                            :+:      :+:    :+:   */
+/*   sort.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/24 12:41:24 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/24 12:42:22 by tozaki           ###   ########.fr       */
+/*   Created: 2025/11/24 21:04:23 by tozaki            #+#    #+#             */
+/*   Updated: 2025/11/24 21:55:03 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINE_H
-# define DEFINE_H
+#ifndef SORT_H
+# define SORT_H
 
-# define SUCCESS 0
-# define FAIL -1
-# define DIGIT_MAX 31
+# include "node.h"
+
+/*sort*/
+int	issorted(t_node *dummy);
+int	radix_sort_one_digit(t_node *stack_a, t_node *stack_b, int digit);
+int	radix_sort(t_node *stack_a, t_node *stack_b);
 
 #endif
