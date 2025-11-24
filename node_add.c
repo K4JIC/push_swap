@@ -59,7 +59,6 @@ t_node	*node_add_back(t_node *dummy, t_node *new)
 
 	if (!dummy || !new)
 		return (NULL);
-	
 	last = node_last(dummy);
 	last->next = new;
 	new->prev = last;

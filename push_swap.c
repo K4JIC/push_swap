@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 19:38:11 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/24 21:56:55 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/24 22:17:34 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	handle_single_input(t_node *stack, char *argv)
 	i = 0;
 	while (i < n)
 	{
+		if (!is_valid_number(sp[i]))
+			return (FAIL);
 		res = node_add_back(stack, node_new(ft_atoi(sp[i])));
 		if (!res)
 		{
@@ -47,12 +49,20 @@ int	handle_multiple_input(t_node *stack, int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
+		if (!is_valid_number(argv[i]))
+			return (FAIL);
 		res = node_add_back(stack, node_new(ft_atoi(argv[i])));
 		if (!res)
 			return (FAIL);
 		i++;
 	}
 	return (SUCCESS);
+}
+
+int	error_msg()
+{
+	write(1, "Error\n", 6);
+	return (1);
 }
 
 #include <stdio.h>
@@ -87,7 +97,7 @@ int	main(int argc, char **argv)
 	else if (argc >= 3)
 		res = handle_multiple_input(stack_a, argc, argv);
 	if (res == FAIL)
-		return (1);
+		return (error_msg());
 	radix_sort(stack_a, stack_b);
 	print_stack(stack_a, 'a'); print_stack(stack_b, 'b');
 	free_node(stack_a);

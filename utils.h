@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 17:56:08 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/23 19:29:42 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/24 22:10:49 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 /*utils*/
 int		ft_isnum(char c);
+int		is_valid_number(char *str);
 int		ft_atoi(char *str);
 
 /*split*/

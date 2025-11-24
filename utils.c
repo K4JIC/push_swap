@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 15:37:33 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/23 21:42:24 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/24 22:17:55 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,22 @@ int	ft_isnum(char c)
 	return (0);
 }
 
+int	is_valid_number(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i])
+	{
+		if (!ft_isnum(str[i]))
+			return (0);
+			i++;
+	}
+	return (1);
+}
+
 int	ft_atoi(char *str)
 {
 	int		sign;
@@ -28,9 +44,10 @@ int	ft_atoi(char *str)
 	sign = 1;
 	ln = 0;
 	i = 0;
-	if (str[i] == '-')
+	if (str[i] == '-' || str[i] == '+')
 	{
-		sign = -1;
+		if (str[i] == '-')
+			sign = -1;
 		i++;
 	}
 	while (ft_isnum(str[i]))
