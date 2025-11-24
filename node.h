@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst.h                                              :+:      :+:    :+:   */
+/*   node.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,15 +13,24 @@
 #ifndef STRUCT_H
 # define STRUCT_H
 
-typedef struct s_lst{
-	int				num;
-	int				index;
-	struct s_lst	*next;
-	struct s_lst	*prev;
-}					t_lst;
+# include <stdbool.h>
 
-t_lst	*lst_new(int num, int top);
-t_lst	*lst_last(t_lst *root);
-t_lst	*lst_add_back(t_lst *root, t_lst *new);
+typedef struct s_node{
+	int				num;
+	bool			valid;
+	struct s_node	*next;
+	struct s_node	*prev;
+}					t_node;
+
+/*node_add*/
+t_node	*init_node();
+t_node	*node_new(int num);
+t_node	*node_last(t_node *dummy);
+t_node	*node_add_back(t_node *dummy, t_node *new);
+t_node	*node_add_front(t_node *dummy, t_node *new);
+
+/*node_pop*/
+t_node	*node_pop(t_node **dummy);
+void	free_node(t_node *dummy);
 
 #endif
