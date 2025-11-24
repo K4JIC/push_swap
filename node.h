@@ -33,4 +33,8 @@ t_node	*node_add_front(t_node *dummy, t_node *new);
 t_node	*node_pop(t_node **dummy);
 void	free_node(t_node *dummy);
 
+/*rules*/
+int	pa(t_node *stack_a, t_node *stack_b);
+int	pb(t_node *stack_a, t_node *stack_b);
+
 #endif

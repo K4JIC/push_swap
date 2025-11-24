@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 19:38:11 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/24 14:45:06 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/24 14:50:08 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	handle_multiple_input(t_node *stack, int argc, char **argv)
 int	main(int argc, char **argv)
 {
 	t_node	*stack_a;
+	t_node	*stack_b;
 	t_node	*cur;
 	int		res;
 
@@ -70,13 +71,21 @@ int	main(int argc, char **argv)
 		res = handle_multiple_input(stack_a, argc, argv);
 	if (res == -1)
 		return (1);
+	stack_b = init_node();
+	node_add_front(stack_b, node_pop(&stack_a));
 	cur = stack_a->next;
 	while (cur->valid)
 	{
-		printf("%d\n", cur->num);
+		printf("a :%d\n", cur->num);
+		cur = cur->next;
+	}
+	cur = stack_b->next;
+	while (cur->valid)
+	{
+		printf("b : %d\n", cur->num);
 		cur = cur->next;
 	}
 	free_node(stack_a);
+	free_node(stack_b);
 	return (0);
 }
-
