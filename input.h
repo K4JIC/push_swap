@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   input.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/23 17:56:08 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/25 21:29:28 by tozaki           ###   ########.fr       */
+/*   Created: 2025/11/25 21:28:17 by tozaki            #+#    #+#             */
+/*   Updated: 2025/11/25 21:37:45 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef INPUT_H
+# define INPUT_H
 
-/*utils*/
-int		ft_isnum(char c);
-int		ft_atoi(char *str);
-long	ft_atol(char *str);
+#include "node.h"
 
-/*split*/
-int		count_words(char *str);
-char	**ft_split(char *str);
-void	free_sp(char **sp);
+int	is_valid_number(char *str);
+int	validate_atoi(char *str, int *n);
+int	check_duplicate(t_node *stack_a);
 
 #endif

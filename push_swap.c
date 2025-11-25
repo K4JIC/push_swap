@@ -6,12 +6,13 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 19:38:11 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/24 22:17:34 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/25 21:49:14 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "node.h"
 #include "define.h"
+#include "input.h"
 #include "utils.h"
 #include "sort.h"
 
@@ -21,15 +22,16 @@ int	handle_single_input(t_node *stack, char *argv)
 	t_node	*res;
 	int		n;
 	int		i;
+	int		num;
 
 	sp = ft_split(argv);
 	n = count_words(argv);
 	i = 0;
 	while (i < n)
 	{
-		if (!is_valid_number(sp[i]))
+		if (!validate_atoi(sp[i], &num) == FAIL)
 			return (FAIL);
-		res = node_add_back(stack, node_new(ft_atoi(sp[i])));
+		res = node_add_back(stack, node_new(num));
 		if (!res)
 		{
 			free_sp(sp);
@@ -45,13 +47,14 @@ int	handle_multiple_input(t_node *stack, int argc, char **argv)
 {
 	t_node	*res;
 	int		i;
+	int		num;
 
 	i = 1;
 	while (i < argc)
 	{
-		if (!is_valid_number(argv[i]))
+		if (validate_atoi(argv[i], &num) == FAIL)
 			return (FAIL);
-		res = node_add_back(stack, node_new(ft_atoi(argv[i])));
+		res = node_add_back(stack, node_new(num));
 		if (!res)
 			return (FAIL);
 		i++;
@@ -97,6 +100,8 @@ int	main(int argc, char **argv)
 	else if (argc >= 3)
 		res = handle_multiple_input(stack_a, argc, argv);
 	if (res == FAIL)
+		return (error_msg());
+	if (check_duplicate(stack_a) == FAIL)
 		return (error_msg());
 	radix_sort(stack_a, stack_b);
 	print_stack(stack_a, 'a'); print_stack(stack_b, 'b');

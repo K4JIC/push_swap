@@ -16,5 +16,7 @@
 # define SUCCESS 0
 # define FAIL -1
 # define DIGIT_MAX 31
+# define INT_MAX 2147483647
+# define INT_MIN -2147483648
 
 #endif

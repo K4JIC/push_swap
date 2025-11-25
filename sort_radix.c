@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort.c                                             :+:      :+:    :+:   */
+/*   sort_radix.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 20:23:31 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/24 21:54:29 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/25 14:43:00 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	radix_sort_one_digit(t_node *stack_a, t_node *stack_b, int digit)
 	i = 0;
 	while (i < alen)
 	{
-		if (!(stack_a->next->num & (1 << digit)))
+		if (!(stack_a->next->num & (1u << digit)))
 		{
 			if (pb(stack_a, stack_b) == FAIL)
 				return (FAIL);
