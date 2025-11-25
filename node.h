@@ -17,7 +17,7 @@
 # include <unistd.h>
 
 typedef struct s_node{
-	int				num;
+	unsigned int	num;
 	bool			valid;
 	struct s_node	*next;
 	struct s_node	*prev;

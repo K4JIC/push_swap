@@ -12,6 +12,7 @@
 
 #include <stdlib.h>
 #include "node.h"
+#include "utils.h"
 
 t_node	*init_node()
 {
@@ -34,7 +35,7 @@ t_node	*node_new(int num)
 	new = (t_node*)malloc(sizeof(t_node) * 1);
 	if (!new)
 		return (NULL);
-	new->num = num;
+	new->num = (unsigned int)(num ^ (1u << 31));
 	new->valid = true;
 	new->next = NULL;
 	new->prev = NULL;

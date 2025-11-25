@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 19:38:11 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/25 21:49:14 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/25 22:07:25 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ void	print_stack(t_node *dummy, char c)
 	cur = dummy->next;
 	while (cur->valid)
 	{
-		printf("%c : %d\n", c, cur->num);
+		printf("%c : %i\n", c, (int)(cur->num ^ (1u << 31)));
+		// printf("%c : %u\n", c, cur->num);
 		cur = cur->next;
 	}
 }
