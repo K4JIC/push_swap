@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 16:36:51 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/26 15:55:35 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/26 17:25:35 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,48 @@
 #include "define.h"
 #include "utils.h"
 
+int	is_valid_use_of_space(char *str)
+{
+	int	i;
+	int	in_word;
+
+	i = 0;
+	if (str[i] == ' ')
+		return (0);
+	in_word = 1;
+	while (str[i])
+	{
+		if (!in_word)
+		{
+			if (str[i] == ' ')
+				return (0);
+		}
+		in_word = 1;
+		if (str[i] == ' ')
+			in_word = 0;
+		i++;
+	}
+	if (!in_word)
+		return (0);
+	return (1);
+}
+
 static int	is_valid_number(char *str)
 {
 	int	i;
 	int	number_exists;
 
 	i = 0;
-	number_exists = 0;
 	if (str[i] == '-' || str[i] == '+')
 		i++;
+	if (!str[i])
+		return (0);
 	while (str[i])
 	{
 		if (!ft_isnum(str[i]))
 			return (0);
-		number_exists = 1;
 		i++;
 	}
-	if (!number_exists)
-		return (0);
 	return (1);
 }
 

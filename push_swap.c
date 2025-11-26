@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 19:38:11 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/26 15:53:31 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/26 17:26:23 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ int	handle_single_input(t_node *stack, char *argv)
 	int		i;
 	int		num;
 
+	if (!is_valid_use_of_space(argv))
+		return (FAIL);
 	sp = ft_split(argv);
 	n = count_words(argv);
 	i = 0;
 	while (i < n)
 	{
-		if (!validate_atoi(sp[i], &num) == FAIL)
+		if (validate_atoi(sp[i], &num) == FAIL)
 			return (FAIL);
 		res = node_add_back(stack, node_new(num));
 		if (!res)
@@ -72,6 +74,8 @@ int	do_sort(t_node *stack_a, t_node *stack_b)
 {
 	int	res;
 
+	if (issorted(stack_a))
+		return (SUCCESS);
 	if (nodelen(stack_a) == 2)
 		res = sort_len2(stack_a, stack_b);
 	else if (nodelen(stack_a) == 3)
@@ -97,7 +101,7 @@ int	main(int argc, char **argv)
 		return (1);
 	stack_b = init_node();
 	if (!stack_b)
-		return (1);
+		return (free_node(stack_a), 1);
 	if (argc == 2)
 		res = handle_single_input(stack_a, argv[1]);
 	else if (argc >= 3)
@@ -115,6 +119,26 @@ int	main(int argc, char **argv)
 
 // #include <stdio.h>
 
+// void	print_stack(t_node *dummy, char c)
+// {
+// 	t_node	*cur;
+
+// 	cur = dummy->next;
+// 	while (cur->valid)
+// 	{
+// 		printf("%c : %i\n", c, (int)(cur->num ^ (1u << 31)));
+// 		// printf("%c : %u\n", c, cur->num);
+// 		cur = cur->next;
+// 	}
+// }
+
+// #include <stdio.h>
+// int	main(int argc, char **argv)
+// {
+// 	t_node	*stack_a;
+// 	t_node	*stack_b;
+// 	t_node	*cur;
+// 	int		res;
 // void	print_stack(t_node *dummy, char c)
 // {
 // 	t_node	*cur;
