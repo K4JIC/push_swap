@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 16:36:51 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/26 17:25:35 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/26 19:49:08 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,26 +90,18 @@ int	check_duplicate(t_node *stack_a)
 {
 	t_node	*cur1;
 	t_node	*cur2;
-	int		len;
-	int		i;
-	int		j;
 
 	cur1 = stack_a->next;
-	len = nodelen(stack_a);
-	i = 0;
-	while (i < len)
+	while (cur1->next->valid)
 	{
-		j = i;
 		cur2 = cur1->next;
-		while (j < len)
+		while (cur2->valid)
 		{
 			if (cur1->num == cur2->num)
 				return (FAIL);
 			cur2 = cur2->next;
-			j++;
 		}
 		cur1 = cur1->next;
-		i++;
 	}
 	return (SUCCESS);
 }

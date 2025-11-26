@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 19:38:11 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/26 17:26:23 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/26 19:50:33 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	handle_multiple_input(t_node *stack, int argc, char **argv)
 
 int	error_msg(void)
 {
-	write(1, "Error\n", 6);
+	write(2, "Error\n", 6);
 	return (1);
 }
 
@@ -96,6 +96,7 @@ int	main(int argc, char **argv)
 	t_node	*cur;
 	int		res;
 
+	res = SUCCESS;
 	stack_a = init_node();
 	if (!stack_a)
 		return (1);

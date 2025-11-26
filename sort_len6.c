@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 15:02:57 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/26 15:59:30 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/26 20:00:26 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,27 @@ static t_node	*search_min(t_node *stack_a)
 	return (min);
 }
 
+static int	assign_rules(t_node *stack_a, t_node *stack_b, t_node *min)
+{
+	int		len;
+	t_node	*cur;
+	int		depth;
+
+	len = nodelen(stack_a);
+	cur = stack_a->next;
+	depth = 0;
+	while (cur != min && cur->valid)
+	{
+		depth++;
+		cur = cur->next;
+	}
+	if (len - depth < depth - 0)
+		rra(stack_a, stack_b);
+	else
+		ra(stack_a, stack_b);
+	return (SUCCESS);
+}
+
 int	sort_len6(t_node *stack_a, t_node *stack_b)
 {
 	t_node	*cur;
@@ -45,7 +66,7 @@ int	sort_len6(t_node *stack_a, t_node *stack_b)
 		min = search_min(stack_a);
 		while (cur != min)
 		{
-			ra(stack_a, stack_b);
+			assign_rules(stack_a, stack_b, min);
 			cur = stack_a->next;
 		}
 		pb(stack_a, stack_b);
