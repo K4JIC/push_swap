@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 14:50:46 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/24 20:33:08 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/26 15:46:57 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	sb(t_node *stack_a, t_node *stack_b)
 int	pa(t_node *stack_a, t_node *stack_b)
 {
 	t_node	*res;
-	
+
 	res = node_add_front(stack_a, node_pop(&stack_b));
 	if (!res)
 		return (FAIL);

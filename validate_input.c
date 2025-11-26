@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 16:36:51 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/25 21:50:26 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/26 15:55:35 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "define.h"
 #include "utils.h"
 
-int	is_valid_number(char *str)
+static int	is_valid_number(char *str)
 {
 	int	i;
 	int	number_exists;
@@ -35,10 +35,24 @@ int	is_valid_number(char *str)
 	return (1);
 }
 
+static int	is_valid_len(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	if (i >= DIGIT_MAX + 2)
+		return (0);
+	return (1);
+}
+
 int	validate_atoi(char *str, int *n)
 {
 	long	ln;
 
+	if (!is_valid_len(str))
+		return (FAIL);
 	if (!is_valid_number(str))
 		return (FAIL);
 	ln = ft_atol(str);

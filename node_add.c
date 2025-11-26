@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   node.c                                              :+:      :+:    :+:   */
+/*   node_add.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 19:48:55 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/24 12:51:49 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/26 15:59:20 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "node.h"
 #include "utils.h"
 
-t_node	*init_node()
+t_node	*init_node(void)
 {
 	t_node	*dummy;
 
@@ -32,10 +32,11 @@ t_node	*node_new(int num)
 {
 	t_node	*new;
 
-	new = (t_node*)malloc(sizeof(t_node) * 1);
+	new = (t_node *)malloc(sizeof(t_node) * 1);
 	if (!new)
 		return (NULL);
 	new->num = (unsigned int)(num ^ (1u << 31));
+	new->index = 0;
 	new->valid = true;
 	new->next = NULL;
 	new->prev = NULL;

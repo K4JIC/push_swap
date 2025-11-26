@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 19:38:11 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/25 22:07:25 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/26 15:53:31 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,25 +62,27 @@ int	handle_multiple_input(t_node *stack, int argc, char **argv)
 	return (SUCCESS);
 }
 
-int	error_msg()
+int	error_msg(void)
 {
 	write(1, "Error\n", 6);
 	return (1);
 }
 
-#include <stdio.h>
-
-void	print_stack(t_node *dummy, char c)
+int	do_sort(t_node *stack_a, t_node *stack_b)
 {
-	t_node	*cur;
+	int	res;
 
-	cur = dummy->next;
-	while (cur->valid)
-	{
-		printf("%c : %i\n", c, (int)(cur->num ^ (1u << 31)));
-		// printf("%c : %u\n", c, cur->num);
-		cur = cur->next;
-	}
+	if (nodelen(stack_a) == 2)
+		res = sort_len2(stack_a, stack_b);
+	else if (nodelen(stack_a) == 3)
+		res = sort_len3(stack_a, stack_b);
+	else if (nodelen(stack_a) <= 6)
+		res = sort_len6(stack_a, stack_b);
+	else
+		res = radix_sort(stack_a, stack_b);
+	if (res == FAIL)
+		return (FAIL);
+	return (SUCCESS);
 }
 
 int	main(int argc, char **argv)
@@ -101,12 +103,56 @@ int	main(int argc, char **argv)
 	else if (argc >= 3)
 		res = handle_multiple_input(stack_a, argc, argv);
 	if (res == FAIL)
-		return (error_msg());
+		return (free_node(stack_a), free_node(stack_b), error_msg());
 	if (check_duplicate(stack_a) == FAIL)
-		return (error_msg());
-	radix_sort(stack_a, stack_b);
-	print_stack(stack_a, 'a'); print_stack(stack_b, 'b');
-	free_node(stack_a);
-	free_node(stack_b);
-	return (0);
+		return (free_node(stack_a), free_node(stack_b), error_msg());
+	if (assign_index(stack_a) == FAIL)
+		return (free_node(stack_a), free_node(stack_b), 1);
+	if (do_sort(stack_a, stack_b) == FAIL)
+		return (free_node(stack_a), free_node(stack_b), 1);
+	return (free_node(stack_a), free_node(stack_b), 0);
 }
+
+// #include <stdio.h>
+
+// void	print_stack(t_node *dummy, char c)
+// {
+// 	t_node	*cur;
+
+// 	cur = dummy->next;
+// 	while (cur->valid)
+// 	{
+// 		printf("%c : %i\n", c, (int)(cur->num ^ (1u << 31)));
+// 		// printf("%c : %u\n", c, cur->num);
+// 		cur = cur->next;
+// 	}
+// }
+// int	main(int argc, char **argv)
+// {
+// 	t_node	*stack_a;
+// 	t_node	*stack_b;
+// 	t_node	*cur;
+// 	int		res;
+
+// 	stack_a = init_node();
+// 	if (!stack_a)
+// 		return (1);
+// 	stack_b = init_node();
+// 	if (!stack_b)
+// 		return (1);
+// 	if (argc == 2)
+// 		res = handle_single_input(stack_a, argv[1]);
+// 	else if (argc >= 3)
+// 		res = handle_multiple_input(stack_a, argc, argv);
+// 	if (res == FAIL)
+// 		return (error_msg());
+// 	if (check_duplicate(stack_a) == FAIL)
+// 		return (error_msg());
+// 	if (assign_index(stack_a) == FAIL)
+// 		return (1);
+// 	do_sort(stack_a, stack_b);
+// 	print_stack(stack_a, 'a'); print_stack(stack_b, 'b');
+// 	free_node(stack_a);
+// 	free_node(stack_b);
+// 	return (0);
+// }

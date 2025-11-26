@@ -6,9 +6,54 @@
 #    By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/25 21:51:11 by tozaki            #+#    #+#              #
-#    Updated: 2025/11/25 21:52:07 by tozaki           ###   ########.fr        #
+#    Updated: 2025/11/26 15:30:44 by tozaki           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+NAME	=	push_swap
 CC		=	cc
 FALGS	=	-Wall -Werror -Wextra
+SRCS	=	push_swap.c		\
+			node_add.c		\
+			node_del.c		\
+			rules1.c		\
+			rules2.c		\
+			rules3.c		\
+			sort_greedy.c	\
+			sort_len3.c		\
+			sort_len6.c		\
+			sort_radix.c	\
+			validate_input.c\
+			ft_split.c		\
+			utils.c
+OBJS	=	$(SRCS:%.c=%.o)
+HDRS	=	define.h		\
+			input.h			\
+			node.h			\
+			sort.h			\
+			utils.h
+
+.PHONY: all
+all: $(NAME)
+
+$(NAME): $(OBJS) libft/libft.a
+	$(CC) -o $(NAME) $(OBJS)
+
+%.o: %.c $(HDRS)
+	$(CC) $(FLAGS) -c $< -o $@ -libft/libft.a
+
+libft/libft.a:
+	make -C libft all
+	make -C libft clean
+
+.PHONY: clean
+clean:
+	rm -f $(OBJS)
+
+.PHONY: fclean
+fclean: clean
+	rm -f libft/libft.a
+	rm -f $(NAME)
+
+.PHONY: re
+re: fclean all

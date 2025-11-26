@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 20:23:31 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/25 22:07:57 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/26 15:50:13 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,39 +20,37 @@ int	issorted(t_node *dummy)
 	cur = dummy->next;
 	while (cur->next->valid)
 	{
-		if (cur->num > cur->next->num)
+		if (cur->index > cur->next->index)
 			return (0);
 		cur = cur->next;
 	}
 	return (1);
 }
 
-int	radix_sort_one_digit(t_node *stack_a, t_node *stack_b, int digit)
+static int	radix_sort_one_digit(t_node *stack_a, t_node *stack_b, int digit)
 {
 	int		alen;
 	int		blen;
 	int		i;
 	int		j;
 
+	if (!stack_a, !stack_b)
+		return (FAIL);
 	alen = nodelen(stack_a);
 	i = 0;
 	while (i < alen)
 	{
-		if (!(stack_a->next->num & (1u << digit)))
-		{
-			if (pb(stack_a, stack_b) == FAIL)
-				return (FAIL);
-		}
-		else if (ra(stack_a, stack_b) == FAIL)
-			return (FAIL);
+		if (!(stack_a->next->index & (1u << digit)))
+			pb(stack_a, stack_b);
+		else
+			ra(stack_a, stack_b);
 		i++;
 	}
 	blen = nodelen(stack_b);
 	j = 0;
 	while (j < blen)
 	{
-		if (pa(stack_a, stack_b) == FAIL)
-			return (FAIL);
+		pa(stack_a, stack_b);
 		j++;
 	}
 	return (SUCCESS);
