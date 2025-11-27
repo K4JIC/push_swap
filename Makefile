@@ -6,7 +6,7 @@
 #    By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/25 21:51:11 by tozaki            #+#    #+#              #
-#    Updated: 2025/11/27 21:18:01 by tozaki           ###   ########.fr        #
+#    Updated: 2025/11/27 21:21:39 by tozaki           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,10 +44,10 @@ $(NAME): $(OBJS) libft/libft.a
 
 libft/libft.a:
 	make -C libft all
-	make -C libft clean
 
 .PHONY: clean
 clean:
+	make -C libft clean
 	rm -f $(OBJS)
 
 .PHONY: fclean
