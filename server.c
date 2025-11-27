@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 20:54:12 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/27 21:05:38 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/27 21:13:37 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 void	send_ack(int c_pid)
 {
 	
-	kill(c_pid, SIGUSR2);
+	kill(c_pid, SIGUSR1);
 }
 
 int	main(void)
