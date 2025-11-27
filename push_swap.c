@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 19:38:11 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/26 19:50:33 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/27 21:18:59 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	main(int argc, char **argv)
 		return (free_node(stack_a), free_node(stack_b), error_msg());
 	if (check_duplicate(stack_a) == FAIL)
 		return (free_node(stack_a), free_node(stack_b), error_msg());
-	if (assign_index(stack_a) == FAIL)
+	if (set_index(stack_a) == FAIL)
 		return (free_node(stack_a), free_node(stack_b), 1);
 	if (do_sort(stack_a, stack_b) == FAIL)
 		return (free_node(stack_a), free_node(stack_b), 1);

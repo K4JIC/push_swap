@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_greedy.c                                      :+:      :+:    :+:   */
+/*   set_index.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 14:19:50 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/26 15:59:38 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/27 21:18:29 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "node.h"
 #include "define.h"
 
-int	assign_index(t_node *stack_a)
+int	set_index(t_node *stack_a)
 {
 	unsigned int		len;
 	t_node				*max;

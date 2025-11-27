@@ -6,7 +6,7 @@
 #    By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/25 21:51:11 by tozaki            #+#    #+#              #
-#    Updated: 2025/11/26 15:30:44 by tozaki           ###   ########.fr        #
+#    Updated: 2025/11/27 21:18:01 by tozaki           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRCS	=	push_swap.c		\
 			rules1.c		\
 			rules2.c		\
 			rules3.c		\
-			sort_greedy.c	\
+			set_index.c		\
 			sort_len3.c		\
 			sort_len6.c		\
 			sort_radix.c	\

@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 21:04:23 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/26 15:47:35 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/27 21:18:22 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ typedef struct s_numbers
 	unsigned int	thir;
 }					t_numbers;
 
-/*sort_greedy*/
-int	assign_index(t_node *stack_a);
+/*set_index*/
+int	set_index(t_node *stack_a);
 
 /*sort_len3*/
 int	sort_len2(t_node *stack_a, t_node *stack_b);
