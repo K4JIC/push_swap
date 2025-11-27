@@ -1,35 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_training.c                                  :+:      :+:    :+:   */
+/*   coredump.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/25 20:41:09 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/27 11:16:43 by tozaki           ###   ########.fr       */
+/*   Created: 2025/11/27 10:29:50 by tozaki            #+#    #+#             */
+/*   Updated: 2025/11/27 10:31:19 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
 #include <stdio.h>
-#include <unistd.h>
-
-static void	sig_smile(int signo)
-{
-	printf(":)\n");
-}
-
-static void	sig_sad(int signo)
-{
-	printf(":<\n");
-}
 
 int	main(void)
 {
-	if (signal(SIGINT, sig_smile) == SIG_ERR)
-		printf("error\n");
-	if (signal(SIGSEGV, sig_sad) == SIG_ERR)
-		printf("error\n");
-	while (1)
-		pause();
+	int	*a;
+
+	a = NULL;
+	printf("%d\n", *a);
 }

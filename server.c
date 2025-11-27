@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_training.c                                  :+:      :+:    :+:   */
+/*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/25 20:41:09 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/27 11:16:43 by tozaki           ###   ########.fr       */
+/*   Created: 2025/11/27 20:54:12 by tozaki            #+#    #+#             */
+/*   Updated: 2025/11/27 21:05:38 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
-#include <stdio.h>
+#include <sys/types.h>
 #include <unistd.h>
+#include "libft/libft.h"
 
-static void	sig_smile(int signo)
+void	send_ack(int c_pid)
 {
-	printf(":)\n");
-}
-
-static void	sig_sad(int signo)
-{
-	printf(":<\n");
+	
+	kill(c_pid, SIGUSR2);
 }
 
 int	main(void)
 {
-	if (signal(SIGINT, sig_smile) == SIG_ERR)
-		printf("error\n");
-	if (signal(SIGSEGV, sig_sad) == SIG_ERR)
-		printf("error\n");
-	while (1)
-		pause();
+	int	pid;
+	
+	pid = getpid();
+	ft_putnbr_fd(pid, 1);
+	return (0);
 }

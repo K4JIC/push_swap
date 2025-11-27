@@ -1,35 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_training.c                                  :+:      :+:    :+:   */
+/*   signalaction_training.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/25 20:41:09 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/27 11:16:43 by tozaki           ###   ########.fr       */
+/*   Created: 2025/11/27 20:14:49 by tozaki            #+#    #+#             */
+/*   Updated: 2025/11/27 20:43:07 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
 #include <stdio.h>
+#include <signal.h>
 #include <unistd.h>
 
-static void	sig_smile(int signo)
-{
-	printf(":)\n");
-}
+// #define __USE_POSIX
 
-static void	sig_sad(int signo)
+int	status;
+
+void	handler(int sig)
 {
-	printf(":<\n");
+	status = 1;
+	printf("status = %d\n", status);
 }
 
 int	main(void)
 {
-	if (signal(SIGINT, sig_smile) == SIG_ERR)
-		printf("error\n");
-	if (signal(SIGSEGV, sig_sad) == SIG_ERR)
-		printf("error\n");
+	struct sigaction	act;
+	
+	act.sa_handler = handler;
+	act.sa_flags = 0;
+	sigemptyset(&act.sa_mask);
+	sigaddset(&act.sa_mask, SIGINT);
+	sigaction(SIGUSR1, &act, NULL);
 	while (1)
-		pause();
+	{
+		sleep(1);
+		printf(".");
+	}
 }
