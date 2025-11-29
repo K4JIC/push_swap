@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 20:23:31 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/26 15:50:13 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/29 13:20:19 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	radix_sort_one_digit(t_node *stack_a, t_node *stack_b, int digit)
 	int		i;
 	int		j;
 
-	if (!stack_a, !stack_b)
+	if (!stack_a || !stack_b)
 		return (FAIL);
 	alen = nodelen(stack_a);
 	i = 0;

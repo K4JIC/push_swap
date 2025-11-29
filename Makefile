@@ -6,13 +6,13 @@
 #    By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/25 21:51:11 by tozaki            #+#    #+#              #
-#    Updated: 2025/11/27 21:21:39 by tozaki           ###   ########.fr        #
+#    Updated: 2025/11/29 13:19:11 by tozaki           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	push_swap
 CC		=	cc
-FALGS	=	-Wall -Werror -Wextra
+FLAGS	=	-Wall -Werror -Wextra
 SRCS	=	push_swap.c		\
 			node_add.c		\
 			node_del.c		\
@@ -37,10 +37,10 @@ HDRS	=	define.h		\
 all: $(NAME)
 
 $(NAME): $(OBJS) libft/libft.a
-	$(CC) -o $(NAME) $(OBJS)
+	$(CC) -o $(NAME) $(OBJS) libft/libft.a
 
 %.o: %.c $(HDRS)
-	$(CC) $(FLAGS) -c $< -o $@ -libft/libft.a
+	$(CC) $(FLAGS) -c $< -o $@
 
 libft/libft.a:
 	make -C libft all

@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 16:36:51 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/26 19:49:08 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/29 13:20:37 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	is_valid_use_of_space(char *str)
 static int	is_valid_number(char *str)
 {
 	int	i;
-	int	number_exists;
 
 	i = 0;
 	if (str[i] == '-' || str[i] == '+')
