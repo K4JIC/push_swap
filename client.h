@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.h                                           :+:      :+:    :+:   */
+/*   client2.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/28 16:33:43 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/29 17:11:18 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/29 16:17:07 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@
 
 typedef struct s_client_status
 {
-	sig_atomic_t		ack_received;
-	int					char_cnt;
-	int					bit_cnt;
-	int					s_pid;
-	char				*str;
-}		t_client_status;
+	sig_atomic_t	ack_received;
+	int				char_cnt;
+	int				bit_cnt;
+}					t_client_status;
 
 #endif

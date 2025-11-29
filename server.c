@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 20:54:12 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/29 13:50:24 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/29 17:23:23 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,21 @@
 
 volatile t_server	g_server;
 
-void	signal_handler(int signo, siginfo_t *info, void *context)
+void	sig_handler(int signo, siginfo_t *info, void *context)
 {
 	(void)context;
+	g_server.sig_received = 1;
+	g_server.client_pid = info->si_pid;
 	if (signo == SIGUSR1)
 		g_server.bit = 1;
 	else if (signo == SIGUSR2)
 		g_server.bit = 0;
+}
+
+void	display_char(void)
+{
+	while (!g_server.sig_received)
+		pause();
 	g_server.c |= (g_server.bit << g_server.cnt);
 	g_server.cnt++;
 	if (g_server.cnt == 8)
@@ -36,7 +44,8 @@ void	signal_handler(int signo, siginfo_t *info, void *context)
 		g_server.c = 0;
 		g_server.cnt = 0;
 	}
-	kill(info->si_pid, SIGUSR1);
+	g_server.sig_received = 0;
+	kill(g_server.client_pid, SIGUSR1);
 }
 
 int	main(void)
@@ -45,7 +54,7 @@ int	main(void)
 	int					pid;
 
 	ft_bzero(&act, sizeof(struct sigaction));
-	act.sa_sigaction = signal_handler;
+	act.sa_sigaction = sig_handler;
 	act.sa_flags = SA_SIGINFO;
 	sigemptyset(&act.sa_mask);
 	sigaddset(&act.sa_mask, SIGUSR1);
@@ -60,6 +69,6 @@ int	main(void)
 	ft_putnbr_fd(pid, 1);
 	ft_putchar_fd('\n', 1);
 	while (1)
-		pause();
+		display_char();
 	return (0);
 }
