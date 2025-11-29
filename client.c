@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 20:54:07 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/29 17:49:20 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/29 17:56:43 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 #include "ft_printf/libft/libft.h"
 #include <stdlib.h>
 
-volatile sig_atomic_t	ack_received;
+volatile sig_atomic_t	g_ack_received;
 
 void	ack_handler(int signo)
 {
 	(void)signo;
-	ack_received = 1;
+	g_ack_received = 1;
 }
 
 void	send_bit(int s_pid, int bit)
@@ -39,9 +39,9 @@ void	send_char(int s_pid, char c)
 	i = 0;
 	while (i < 8)
 	{
-		ack_received = 0;
+		g_ack_received = 0;
 		send_bit(s_pid, (c >> i) & 1);
-		while (!ack_received)
+		while (!g_ack_received)
 			pause();
 		i++;
 	}
@@ -70,7 +70,7 @@ int	main(int argc, char **argv)
 	act.sa_handler = ack_handler;
 	sigemptyset(&act.sa_mask);
 	sigaction(SIGUSR1, &act, NULL);
-	ack_received = 0;
+	g_ack_received = 0;
 	send_string(ft_atoi(argv[1]), argv[2]);
 	return (0);
 }
