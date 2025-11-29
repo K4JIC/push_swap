@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 20:54:12 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/29 13:32:45 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/29 13:50:24 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ volatile t_server	g_server;
 void	signal_handler(int signo, siginfo_t *info, void *context)
 {
 	(void)context;
-
 	if (signo == SIGUSR1)
 		g_server.bit = 1;
 	else if (signo == SIGUSR2)
@@ -49,7 +48,7 @@ int	main(void)
 	act.sa_sigaction = signal_handler;
 	act.sa_flags = SA_SIGINFO;
 	sigemptyset(&act.sa_mask);
-	sigaddset(&act.sa_mask, SIGUSR1); 
+	sigaddset(&act.sa_mask, SIGUSR1);
 	sigaddset(&act.sa_mask, SIGUSR2);
 	sigaction(SIGUSR1, &act, NULL);
 	sigaction(SIGUSR2, &act, NULL);

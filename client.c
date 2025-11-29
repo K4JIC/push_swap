@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 20:54:07 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/29 13:34:55 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/29 13:48:13 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 #include "libft/libft.h"
 #include <stdlib.h>
 
-volatile t_client_status		c_stat;
+volatile t_client_status		g_client;
 
 void	ack_handler(int signo)
 {
 	(void)signo;
-	c_stat.ack_received = 1;
+	g_client.ack_received = 1;
 }
 
 void	send_bit(int s_pid, int bit)
@@ -40,9 +40,9 @@ void	send_char(int s_pid, char c)
 	i = 0;
 	while (i < 8)
 	{
-		c_stat.ack_received = 0;
+		g_client.ack_received = 0;
 		send_bit(s_pid, (c >> i) & 1);
-		while (!c_stat.ack_received)
+		while (!g_client.ack_received)
 			pause();
 		i++;
 	}
@@ -63,9 +63,9 @@ void	send_string(int s_pid, char *str)
 
 void	init_status(void)
 {
-	c_stat.ack_received = 0;
-	c_stat.char_cnt = 0;
-	c_stat.bit_cnt = 0;
+	g_client.ack_received = 0;
+	g_client.char_cnt = 0;
+	g_client.bit_cnt = 0;
 }
 
 int	main(int argc, char **argv)
