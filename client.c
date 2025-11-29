@@ -6,23 +6,22 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 20:54:07 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/29 17:23:31 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/29 17:49:20 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include "client.h"
-#include "libft/libft.h"
+#include "ft_printf/libft/libft.h"
 #include <stdlib.h>
 
-volatile t_client_status	g_client;
+volatile sig_atomic_t	ack_received;
 
 void	ack_handler(int signo)
 {
 	(void)signo;
-	g_client.ack_received = 1;
+	ack_received = 1;
 }
 
 void	send_bit(int s_pid, int bit)
@@ -40,9 +39,9 @@ void	send_char(int s_pid, char c)
 	i = 0;
 	while (i < 8)
 	{
-		g_client.ack_received = 0;
+		ack_received = 0;
 		send_bit(s_pid, (c >> i) & 1);
-		while (!g_client.ack_received)
+		while (!ack_received)
 			pause();
 		i++;
 	}
@@ -71,9 +70,7 @@ int	main(int argc, char **argv)
 	act.sa_handler = ack_handler;
 	sigemptyset(&act.sa_mask);
 	sigaction(SIGUSR1, &act, NULL);
-	g_client.ack_received = 0;
-	g_client.char_cnt = 0;
-	g_client.bit_cnt = 0;
+	ack_received = 0;
 	send_string(ft_atoi(argv[1]), argv[2]);
 	return (0);
 }

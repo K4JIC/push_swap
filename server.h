@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server2.h                                          :+:      :+:    :+:   */
+/*   server.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 13:32:55 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/29 17:13:04 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/29 17:41:50 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 
 typedef struct s_server
 {
-	sig_atomic_t	sig_received;
-	sig_atomic_t	client_pid;
-	sig_atomic_t	bit;
-	char			c;
-	int				cnt;
+	volatile sig_atomic_t	sig_received;
+	volatile sig_atomic_t	client_pid;
+	volatile sig_atomic_t	bit;
+	char					c;
+	int						cnt;
 }			t_server;
 
 #endif

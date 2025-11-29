@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tozaki <tozaki@student.42.jp>              +#+  +:+       +#+        */
+/*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 16:16:05 by tozaki            #+#    #+#             */
-/*   Updated: 2025/10/22 16:44:37 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/16 11:19:53 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,23 @@ char	*ft_substr(const char *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(const char *s1, const char *set);
 char	**ft_split(const char *s, char c);
+void	free_sp(char **sp);
 char	*ft_itoa(int n);
 char	*ft_strmapi(const char *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
-/*additional file*/
-void	ft_putchar_fd(char c, int fd);
-void	ft_putstr_fd(char *s, int fd);
-void	ft_putendl_fd(char *s, int fd);
-void	ft_putnbr_fd(int n, int fd);
+/*additional output*/
+int		ft_putchar_fd(char c, int fd);
+int		ft_putstr_fd(char *s, int fd);
+int		ft_putendl_fd(char *s, int fd);
+int		ft_putnbr_fd(int n, int fd);
+int		ft_putnbr_ui_fd(unsigned int n, int fd);
+int		ft_putnbr_hex_fd(unsigned int n, char upper_or_lower, int fd);
+int		ft_putnbr_base_fd(int n, int base, char *basechr, int fd);
+int		ft_putptr_fd(unsigned long long n, int fd);
+int		ft_putnbr_base_ui_fd(unsigned int n, unsigned int base, \
+char *basechr, int fd);
 
-/*bonus*/
+/*bonus list*/
 typedef struct s_list
 {
 	void			*content;

@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client2.h                                          :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/28 16:33:43 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/29 16:17:07 by tozaki           ###   ########.fr       */
+/*   Created: 2025/10/20 16:21:37 by tozaki            #+#    #+#             */
+/*   Updated: 2025/11/15 15:39:53 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CLIENT_H
-# define CLIENT_H
+#include <unistd.h>
 
-# include <signal.h>
-
-typedef struct s_client_status
+int	ft_putchar_fd(char c, int fd)
 {
-	sig_atomic_t	ack_received;
-	int				char_cnt;
-	int				bit_cnt;
-}					t_client_status;
+	return (write(fd, &c, 1));
+}
+/*
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
-#endif
+int	main(void)
+{
+	int		fd;
+
+	fd = open("./file", O_WRONLY);
+	ft_putchar_fd('v', fd);
+	close(fd);
+	return (0);
+}
+*/

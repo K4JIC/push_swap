@@ -1,40 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tozaki <tozaki@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/20 16:36:52 by tozaki            #+#    #+#             */
-/*   Updated: 2025/10/22 18:34:27 by tozaki           ###   ########.fr       */
+/*   Created: 2025/11/15 19:30:25 by tozaki            #+#    #+#             */
+/*   Updated: 2025/11/16 18:28:57 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-void	ft_putstr_fd(char *s, int fd)
-{
-	int	i;
+int	ft_printf(const char *format, ...);
 
-	i = 0;
-	while (s[i])
-	{
-		ft_putchar_fd(s[i], fd);
-		i++;
-	}
-}
-/*
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-
-int	main(void)
-{
-	int	fd;
-
-	fd = open("./file", O_WRONLY);
-	ft_putstr_fd("amembo", fd);
-	close(fd);
-	return (0);
-}
-*/
+#endif

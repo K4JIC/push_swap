@@ -6,7 +6,7 @@
 #    By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/29 13:00:34 by tozaki            #+#    #+#              #
-#    Updated: 2025/11/29 16:33:31 by tozaki           ###   ########.fr        #
+#    Updated: 2025/11/29 17:50:33 by tozaki           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,36 +19,35 @@ C_SRCS	=	client.c
 S_OBJS	=	server.o
 C_OBJS	=	client.o
 S_HDRS	=	server.h
-C_HDRS	=	client.h
 
 
 .PHONY: all
 all: $(SERVER) $(CLIENT)
 
-$(SERVER): $(S_OBJS) libft/libft.a
-	$(CC) $(S_OBJS) -o $(SERVER) libft/libft.a
+$(SERVER): $(S_OBJS) ft_printf/libftprintf.a
+	$(CC) $(S_OBJS) -o $(SERVER) ft_printf/libftprintf.a
 
-$(CLIENT): $(C_OBJS) libft/libft.a
-	$(CC) $(C_OBJS) -o $(CLIENT) libft/libft.a
+$(CLIENT): $(C_OBJS) ft_printf/libftprintf.a
+	$(CC) $(C_OBJS) -o $(CLIENT) ft_printf/libftprintf.a
 
 $(S_OBJS): $(S_SRCS) $(S_HDRS)
 	$(CC) $(FALGS) $(S_SRCS) -c
 
-$(C_OBJS): $(C_SRCS) $(C_HDRS)
+$(C_OBJS): $(C_SRCS)
 	$(CC) $(FALGS) $(C_SRCS) -c
 
-libft/libft.a:
-	make -C libft all
+ft_printf/libftprintf.a:
+	make -C ft_printf all
 
 .PHONY: clean
 clean:
-	make -C libft clean
+	make -C ft_printf clean
 	rm -f $(S_OBJS)
 	rm -f $(C_OBJS)
 
 .PHONY: fclean
 fclean: clean
-	rm -f libft/libft.a
+	rm -f ft_printf/libftprintf.a
 	rm -f server
 	rm -f client
 

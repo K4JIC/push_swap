@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tozaki <tozaki@student.42.jp>              +#+  +:+       +#+        */
+/*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 00:41:30 by tozaki            #+#    #+#             */
-/*   Updated: 2025/10/25 16:28:24 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/16 11:22:25 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,26 +57,42 @@ static char	*ft_get_next_word(char *str[], const char c)
 	return (cpy);
 }
 
+void	free_sp(char **sp)
+{
+	int	i;
+
+	i = 0;
+	while (sp[i])
+	{
+		if (sp[i])
+			free(sp[i]);
+		i++;
+	}
+	free(sp);
+}
+
 char	**ft_split(const char *s, char c)
 {
-	char	**wlist;
+	char	**sp;
 	int		number_of_words;
 	int		i;
 	char	*str;
 
 	str = (char *)s;
 	number_of_words = ft_countwords(s, c);
-	wlist = (char **)malloc((number_of_words + 1) * sizeof(char *));
-	if (!wlist)
+	sp = (char **)malloc((number_of_words + 1) * sizeof(char *));
+	if (!sp)
 		return (NULL);
 	i = 0;
 	while (i < number_of_words)
 	{
-		wlist[i] = ft_get_next_word(&str, c);
+		sp[i] = ft_get_next_word(&str, c);
+		if (!sp[i])
+			free_sp(sp);
 		i++;
 	}
-	wlist[i] = NULL;
-	return (wlist);
+	sp[number_of_words] = NULL;
+	return (sp);
 }
 /*
 #include <stdio.h>

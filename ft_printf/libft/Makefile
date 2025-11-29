@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tozaki <tozaki@student.42.jp>              +#+  +:+       +#+         #
+#    By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/18 14:53:35 by tozaki            #+#    #+#              #
-#    Updated: 2025/10/25 18:19:28 by tozaki           ###   ########.fr        #
+#    Updated: 2025/11/16 05:16:27 by tozaki           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,12 @@ PART2	=	ft_substr.c		\
 			ft_putchar_fd.c	\
 			ft_putstr_fd.c	\
 			ft_putendl_fd.c	\
-			ft_putnbr_fd.c
+			ft_putnbr_fd.c	\
+			ft_putnbr_base_fd.c	\
+			ft_putnbr_base_ui_fd.c	\
+			ft_putnbr_hex_fd.c	\
+			ft_putnbr_ui_fd.c	\
+			ft_putptr_fd.c
 M_SRCS	=	$(PART1) $(PART2)
 BONUSES	=	ft_lstnew.c		\
 			ft_lstadd_front.c	\
@@ -70,7 +75,7 @@ endif
 .PHONY: all
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(M_OBJS)
 	$(LIBS) $(NAME) $(OBJS)
 
 .PHONY: bonus

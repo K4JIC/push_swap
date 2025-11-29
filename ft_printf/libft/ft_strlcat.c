@@ -30,7 +30,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 		i++;
 	}
 	dst[i + dlen] = '\0';
-	return (slen + dlen);
+	return (dlen + slen);
 }
 /*
 #include <stdio.h>

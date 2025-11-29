@@ -1,20 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tozaki <tozaki@student.42.jp>              +#+  +:+       +#+        */
+/*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/20 16:21:37 by tozaki            #+#    #+#             */
-/*   Updated: 2025/10/20 16:45:54 by tozaki           ###   ########.fr       */
+/*   Created: 2025/10/20 16:49:12 by tozaki            #+#    #+#             */
+/*   Updated: 2025/11/15 19:54:05 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
-void	ft_putchar_fd(char c, int fd)
+int	ft_putendl_fd(char *s, int fd)
 {
-	write(fd, &c, 1);
+	int	ret;
+	int	count;
+
+	count = 0;
+	ret = ft_putstr_fd(s, fd);
+	if (ret == -1)
+		return (-1);
+	count += ret;
+	ret = ft_putchar_fd('\n', fd);
+	if (ret == -1)
+		return (-1);
+	count += ret;
+	return (0);
 }
 /*
 #include <sys/types.h>
@@ -23,10 +35,10 @@ void	ft_putchar_fd(char c, int fd)
 
 int	main(void)
 {
-	int		fd;
+	int	fd;
 
 	fd = open("./file", O_WRONLY);
-	ft_putchar_fd('v', fd);
+	ft_putendl_fd("amembo", fd);
 	close(fd);
 	return (0);
 }

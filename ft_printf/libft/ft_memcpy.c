@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tozaki <tozaki@student.42.jp>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/20 16:49:12 by tozaki            #+#    #+#             */
-/*   Updated: 2025/10/21 02:09:19 by tozaki           ###   ########.fr       */
+/*   Created: 2025/10/16 21:43:25 by tozaki            #+#    #+#             */
+/*   Updated: 2025/10/22 17:50:53 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
-void	ft_putendl_fd(char *s, int fd)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	ft_putstr_fd(s, fd);
-	ft_putchar_fd('\n', fd);
-}
-/*
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
+	unsigned char	*ucdest;
+	unsigned char	*ucsrc;
+	size_t			i;
 
-int	main(void)
-{
-	int	fd;
-
-	fd = open("./file", O_WRONLY);
-	ft_putendl_fd("amembo", fd);
-	close(fd);
-	return (0);
+	if (!n)
+		return (dest);
+	if (!dest && !src)
+		return (NULL);
+	ucdest = (unsigned char *)dest;
+	ucsrc = (unsigned char *)src;
+	i = 0;
+	while (i < n)
+	{
+		ucdest[i] = ucsrc[i];
+		i++;
+	}
+	return (dest);
 }
-*/

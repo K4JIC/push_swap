@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tozaki <tozaki@student.42.jp>              +#+  +:+       +#+        */
+/*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 20:57:00 by tozaki            #+#    #+#             */
-/*   Updated: 2025/10/21 18:10:15 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/14 17:33:28 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,23 @@ int	ft_atoi(const char *nptr)
 	}
 	return ((int)(sign * res));
 }
-/*
-#include <stdio.h>
 
-int	main(int argc,char **argv)
-{
-	(void)argc;
-	printf("%d\n", ft_atoi(argv[1]));
-	return (1);
-}
-*/
+//#include <stdio.h>
+
+//int	main(int argc,char **argv)
+//{
+//	(void)argc;
+//	printf("%d\n", ft_atoi(argv[1]));
+//	printf("%d\n", ft_atoi(argv[1]));
+//	printf("%d\n", ft_atoi(argv[1]));
+//	printf("%d\n", ft_atoi(argv[1]));
+//	printf("%d\n", ft_atoi(argv[1]));
+//	printf("%d\n", ft_atoi(argv[1]));
+//	printf("%d\n", ft_atoi(argv[1]));
+//	printf("%d\n", ft_atoi(argv[1]));
+//	printf("%d\n", ft_atoi(argv[1]));
+//	printf("%d\n", ft_atoi(argv[1]));
+//	printf("%d\n", ft_atoi(argv[1]));
+//	printf("%d\n", ft_atoi(argv[1]));
+//	return (0);
+//}
