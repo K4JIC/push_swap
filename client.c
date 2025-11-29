@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 20:54:07 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/29 13:48:13 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/29 13:52:05 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "libft/libft.h"
 #include <stdlib.h>
 
-volatile t_client_status		g_client;
+volatile t_client_status	g_client;
 
 void	ack_handler(int signo)
 {
