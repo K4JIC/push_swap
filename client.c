@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 20:54:07 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/29 17:56:43 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/29 18:01:00 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	main(int argc, char **argv)
 
 	if (argc != 3)
 		return (1);
-	ft_bzero(&act, sizeof(struct sigaction));
 	act.sa_handler = ack_handler;
 	sigemptyset(&act.sa_mask);
 	sigaction(SIGUSR1, &act, NULL);
