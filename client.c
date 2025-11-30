@@ -6,15 +6,16 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 20:54:07 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/30 19:32:04 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/30 21:58:50 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include "ft_printf/libft/libft.h"
 #include <stdlib.h>
+#include "client.h"
+#include "ft_printf/libft/libft.h"
 
 volatile int	g_ack_received; 
 
@@ -70,9 +71,12 @@ int	main(int argc, char **argv)
 	act.sa_handler = ack_handler;
 	sigemptyset(&act.sa_mask);
 	sigaddset(&act.sa_mask, SIGUSR1);
-	sigaction(SIGUSR1, &act, NULL);
+	if (sigaction(SIGUSR1, &act, NULL) != 0)
+		return (1);
 	g_ack_received = 0;
 	s_pid = ft_atoi(argv[1]);
+	if (s_pid <= PID_MIN || PID_MAX < s_pid)
+		return (1);
 	send_string(s_pid, argv[2]);
 	return (0);
 }
