@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 19:38:11 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/29 13:19:52 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/11/30 18:42:46 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	handle_single_input(t_node *stack, char *argv)
 	while (i < n)
 	{
 		if (validate_atoi(sp[i], &num) == FAIL)
-			return (FAIL);
+			return (free_sp(sp), FAIL);
 		res = node_add_back(stack, node_new(num));
 		if (!res)
 		{
