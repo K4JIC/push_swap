@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 20:54:07 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/01 22:18:29 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/01 22:21:34 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ int	handshake_with_server(int s_pid)
 		wait_time++;
 	}
 	if (g_server_state == BUSY)
+	{
+		write(1, "timeout\n", 9);
 		return (TIMEOUT);
+	}
 	return (SUCCESS);
 }
 
@@ -66,7 +69,7 @@ int	send_char(int s_pid, char c)
 			wait_time *= 2;
 		}
 		if (g_server_state == BUSY)
-			return (TIMEOUT);
+			return ((void)write(1, "connection was lost\n", 21), TIMEOUT);
 		i++;
 	}
 	return (SUCCESS);
