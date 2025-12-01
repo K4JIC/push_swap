@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 20:54:07 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/01 18:01:08 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/01 22:18:29 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "client.h"
-#include "ft_printf/libft/libft.h"
+#include "libft.h"
 
-volatile int	g_server_state; 
+volatile sig_atomic_t	g_server_state;
 
 void	ack_handler(int signo)
 {
@@ -27,16 +27,28 @@ void	ack_handler(int signo)
 		g_server_state = IDLING;
 }
 
-void	handshake_with_server(int s_pid)
+int	handshake_with_server(int s_pid)
 {
-	kill(s_pid, SIGUSR1);
-	sleep(10);
+	int	wait_time;
+
+	if (kill(s_pid, SIGUSR1) != SUCCESS)
+		return (FAIL);
+	wait_time = 0;
+	while (g_server_state == BUSY && wait_time < 5)
+	{
+		sleep(1);
+		wait_time++;
+	}
+	if (g_server_state == BUSY)
+		return (TIMEOUT);
+	return (SUCCESS);
 }
 
-void	send_char(int s_pid, char c)
+int	send_char(int s_pid, char c)
 {
 	int	i;
 	int	bit;
+	int	wait_time;
 
 	i = 0;
 	while (i < 8)
@@ -47,23 +59,33 @@ void	send_char(int s_pid, char c)
 			kill(s_pid, SIGUSR1);
 		else
 			kill(s_pid, SIGUSR2);
-		while (g_server_state == BUSY)
-			usleep(1);
+		wait_time = 1;
+		while (g_server_state == BUSY && i < 100000)
+		{
+			usleep(wait_time);
+			wait_time *= 2;
+		}
+		if (g_server_state == BUSY)
+			return (TIMEOUT);
 		i++;
 	}
+	return (SUCCESS);
 }
 
-void	send_string(int s_pid, char *str)
+int	send_string(int s_pid, char *str)
 {
 	int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		send_char(s_pid, str[i]);
+		if (send_char(s_pid, str[i]) == TIMEOUT)
+			return (TIMEOUT);
 		i++;
 	}
-	send_char(s_pid, '\0');
+	if (send_char(s_pid, '\0') == TIMEOUT)
+		return (TIMEOUT);
+	return (SUCCESS);
 }
 
 int	main(int argc, char **argv)
@@ -85,7 +107,11 @@ int	main(int argc, char **argv)
 		return (1);
 	g_server_state = BUSY;
 	while (g_server_state == BUSY)
-		handshake_with_server(s_pid);
-	send_string(s_pid, argv[2]);
+	{
+		if (handshake_with_server(s_pid) < 0)
+			return (1);
+	}
+	if (send_string(s_pid, argv[2]) == TIMEOUT)
+		return (1);
 	return (0);
 }

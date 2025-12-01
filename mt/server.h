@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 13:32:55 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/29 18:27:56 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/01 20:42:08 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,6 @@
 
 # include <signal.h>
 
-typedef struct s_server
-{
-	sig_atomic_t	sig_received;
-	sig_atomic_t	client_pid;
-	sig_atomic_t	bit;
-}			t_server;
+# define NO_CONNECTION 0
 
 #endif

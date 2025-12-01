@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 20:54:12 by tozaki            #+#    #+#             */
-/*   Updated: 2025/12/01 18:17:31 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/01 22:18:17 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include "server.h"
-#include "ft_printf/ft_printf.h"
+#include "ft_printf.h"
 
-void	handshake_with_client(volatile sig_atomic_t *talking_pid, pid_t received_pid)
+volatile sig_atomic_t	g_connected_pid;
+
+void	handshake_with_client(pid_t received_pid)
 {
-	if (*talking_pid == 0)
+	if (g_connected_pid == NO_CONNECTION)
 	{
-		*talking_pid = received_pid;
+		g_connected_pid = received_pid;
 		kill(received_pid, SIGUSR1);
 	}
 	else
@@ -29,28 +31,50 @@ void	handshake_with_client(volatile sig_atomic_t *talking_pid, pid_t received_pi
 
 void	sig_handler(int signo, siginfo_t *info, void *context)
 {
-	static volatile sig_atomic_t	talking_pid = 0;
-	static volatile sig_atomic_t	c = '\0';
-	static volatile sig_atomic_t	cnt = 0;
+	static char		c = '\0';
+	static int		cnt = 0;
 
 	(void)context;
-	if (talking_pid != info->si_pid)
-		return (handshake_with_client(&talking_pid, info->si_pid));
+	if (g_connected_pid != info->si_pid)
+		return (handshake_with_client(info->si_pid));
 	c |= ((signo == SIGUSR1) << cnt);
 	cnt++;
 	if (cnt == 8)
 	{
 		if (c == '\0')
 		{
-			talking_pid = 0;
+			g_connected_pid = NO_CONNECTION;
 			write(1, "\n", 1);
 		}
 		else
-			write(1, &c, 1);
+			write(1, (const char *)&c, 1);
 		c = '\0';
 		cnt = 0;
 	}
 	kill(info->si_pid, SIGUSR1);
+}
+
+void	check_timeout(void)
+{
+	int	wait_count;
+
+	while (1)
+	{
+		if (g_connected_pid != NO_CONNECTION)
+		{
+			wait_count = 0;
+			sleep(1);
+			wait_count++;
+			if (wait_count > 30)
+			{
+				g_connected_pid = NO_CONNECTION;
+				write(1, "connection was lost\n", 20);
+				break ;
+			}
+		}
+		else
+			usleep(1);
+	}
 }
 
 int	main(void)
@@ -69,7 +93,6 @@ int	main(void)
 		return (1);
 	pid = getpid();
 	ft_printf("Server PID: %d\n", pid);
-	while (1)
-		pause();
+	check_timeout();
 	return (0);
 }

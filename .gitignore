@@ -5,5 +5,6 @@ a.out
 client
 server
 *.o
+*.py
 mt_unused_g_variable
 mt_dead_lock
