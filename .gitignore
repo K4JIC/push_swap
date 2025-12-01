@@ -1,6 +1,9 @@
 training
+mask_training
 .vscode
 a.out
 client
 server
+*.o
 mt_unused_g_variable
+mt_dead_lock

@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 20:54:07 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/30 21:58:50 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/01 18:01:08 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,37 @@
 #include "client.h"
 #include "ft_printf/libft/libft.h"
 
-volatile int	g_ack_received; 
+volatile int	g_server_state; 
 
 void	ack_handler(int signo)
 {
-	(void)signo;
-	g_ack_received = 1;
+	if (signo == SIGUSR2)
+		g_server_state = BUSY;
+	else if (signo == SIGUSR1)
+		g_server_state = IDLING;
 }
 
-void	send_bit(int s_pid, int bit)
+void	handshake_with_server(int s_pid)
 {
-	if (bit)
-		kill(s_pid, SIGUSR1);
-	else
-		kill(s_pid, SIGUSR2);
+	kill(s_pid, SIGUSR1);
+	sleep(10);
 }
 
 void	send_char(int s_pid, char c)
 {
 	int	i;
+	int	bit;
 
 	i = 0;
 	while (i < 8)
 	{
-		g_ack_received = 0;
-		send_bit(s_pid, (c >> i) & 1);
-		while (!g_ack_received)
+		g_server_state = BUSY;
+		bit = ((c >> i) & 1);
+		if (bit)
+			kill(s_pid, SIGUSR1);
+		else
+			kill(s_pid, SIGUSR2);
+		while (g_server_state == BUSY)
 			usleep(1);
 		i++;
 	}
@@ -69,14 +74,18 @@ int	main(int argc, char **argv)
 	if (argc != 3)
 		return (1);
 	act.sa_handler = ack_handler;
+	act.sa_flags = SA_RESTART;
 	sigemptyset(&act.sa_mask);
-	sigaddset(&act.sa_mask, SIGUSR1);
 	if (sigaction(SIGUSR1, &act, NULL) != 0)
 		return (1);
-	g_ack_received = 0;
+	if (sigaction(SIGUSR2, &act, NULL) != 0)
+		return (1);
 	s_pid = ft_atoi(argv[1]);
 	if (s_pid <= PID_MIN || PID_MAX < s_pid)
 		return (1);
+	g_server_state = BUSY;
+	while (g_server_state == BUSY)
+		handshake_with_server(s_pid);
 	send_string(s_pid, argv[2]);
 	return (0);
 }

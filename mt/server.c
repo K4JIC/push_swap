@@ -6,7 +6,7 @@
 /*   By: tozaki <tozaki@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 20:54:12 by tozaki            #+#    #+#             */
-/*   Updated: 2025/11/30 22:16:24 by tozaki           ###   ########.fr       */
+/*   Updated: 2025/12/01 18:17:31 by tozaki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,41 @@
 #include "server.h"
 #include "ft_printf/ft_printf.h"
 
+void	handshake_with_client(volatile sig_atomic_t *talking_pid, pid_t received_pid)
+{
+	if (*talking_pid == 0)
+	{
+		*talking_pid = received_pid;
+		kill(received_pid, SIGUSR1);
+	}
+	else
+		kill(received_pid, SIGUSR2);
+}
+
 void	sig_handler(int signo, siginfo_t *info, void *context)
 {
-	static char		c = '\0';
-	static int		cnt = 0;
-	static pid_t	client_pid = 0;
+	static volatile sig_atomic_t	talking_pid = 0;
+	static volatile sig_atomic_t	c = '\0';
+	static volatile sig_atomic_t	cnt = 0;
 
-	if (client_pid != 0 && client_pid != info->si_pid)
-		return ((void)kill(info->si_pid, SIGUSR2));
 	(void)context;
-	if (client_pid == 0)
-		client_pid = info->si_pid;
+	if (talking_pid != info->si_pid)
+		return (handshake_with_client(&talking_pid, info->si_pid));
 	c |= ((signo == SIGUSR1) << cnt);
 	cnt++;
 	if (cnt == 8)
 	{
 		if (c == '\0')
-			ft_printf("\n");
+		{
+			talking_pid = 0;
+			write(1, "\n", 1);
+		}
 		else
-			ft_printf("%c", c);
-		kill(client_pid, SIGUSR1);
+			write(1, &c, 1);
 		c = '\0';
 		cnt = 0;
-		if (c == '\0')
-			client_pid = 0;
 	}
-	else
-		kill(client_pid, SIGUSR1);
+	kill(info->si_pid, SIGUSR1);
 }
 
 int	main(void)
